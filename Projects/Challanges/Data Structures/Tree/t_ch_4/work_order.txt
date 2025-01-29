@@ -1,0 +1,9 @@
+### Summary of Order:
+1. Node creation and initialization.
+2. Basic BST operations (search, insert, minimum).
+3. Rotations (left and right).
+4. Fix violations after insertions.
+5. Transplant and deletion logic.
+6. Fix violations after deletions.
+7. In-order traversal for debugging.
+8. Optional advanced features.

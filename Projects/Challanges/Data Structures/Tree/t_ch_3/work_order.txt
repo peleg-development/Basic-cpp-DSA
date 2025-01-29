@@ -1,0 +1,61 @@
+Below is a suggested order to implement the functions, gradually increasing complexity and ensuring a solid foundation before tackling advanced features.
+
+1. **Node Creation and Basic Tree Initialization**
+   - Implement the `Node` constructor.
+   - Implement the `AVLTree` constructor to set `root = nullptr`.
+
+2. **Basic Utility Functions**
+   Start with simple helper functions:
+   - `getHeight(Node* node)`: Return node’s height or 0 if nullptr.
+   - `updateHeight(Node* node)`: Updates `node->height` using `node->left` and `node->right`.
+
+   At this point, you should be able to correctly maintain heights during insertion/deletion.
+
+3. **BST Operations Without Balancing**
+   Focus on standard BST logic first:
+   - `searchNode(Node* node, int key)`: Implement a standard BST search.
+   - `insertNode(Node* node, int key)`: Insert the key as if it’s a normal BST. Don’t do rotations yet.
+   - `findMinNode(Node* node)`: Return the node with the minimum key in the subtree.
+   - `deleteNode(Node* node, int key)`: Implement BST deletion logic (find the node, replace with successor if necessary, etc.).
+
+   At this stage, your tree may not be balanced, but the basic BST insert/delete/search logic should be solid.
+
+4. **Balancing Logic and Rotations**
+   Now add the AVL-specific code:
+   - `getBalanceFactor(Node* node)`: Compute the balance factor.
+   - `rightRotate(Node* y)`: Implement a single right rotation.
+   - `leftRotate(Node* x)`: Implement a single left rotation.
+   - `balanceNode(Node* node)`: Use `getBalanceFactor` and rotations to fix imbalances.
+
+   Once these are done:
+   - Modify `insertNode` and `deleteNode` to call `balanceNode` before returning.
+   - Make sure `updateHeight(node)` is used whenever needed to keep node heights consistent.
+
+5. **In-Order Traversal**
+   - `inOrderTraversal(Node* node)`: Simple recursive traversal to print keys in ascending order.
+
+   Use this to verify that insertion and deletion maintain the BST property and that balancing is correct by comparing heights.
+
+6. **Augmenting the Tree for Order Statistics** (Optional and more advanced)
+   - Add `subtree_size` and `updateAugmentedData(Node* node)` to maintain subtree sizes.
+   - Adjust `updateAugmentedData` after insertions, deletions, and rotations to ensure each node’s `subtree_size` is accurate.
+   - Implement `selectNode(Node* node, int i)` and `rankOfKey(Node* node, int key)` using `subtree_size` for efficient order-statistic operations.
+
+7. **Merging Two AVL Trees** (More Complex and Optional)
+   - Extract sorted keys from one tree (using in-order traversal).
+   - Possibly implement `buildAVLFromSortedArray(...)` to reconstruct a balanced AVL tree from a sorted array.
+   - `mergeWith(AVLTree& other)`: Implement the logic to merge two AVL trees.
+     1. Extract sorted keys from both.
+     2. Merge these sorted lists.
+     3. Build a new AVL tree from the merged sorted list.
+
+**Summary of the Order:**
+1. Node constructor and tree initialization.
+2. Basic height utilities (`getHeight`, `updateHeight`).
+3. Basic BST logic (`insertNode`, `deleteNode`, `searchNode`, `findMinNode`) without balancing.
+4. AVL balancing logic (`getBalanceFactor`, `rightRotate`, `leftRotate`, `balanceNode`).
+5. In-order traversal for testing.
+6. Augment the tree for order statistics (`subtree_size`, `selectNode`, `rankOfKey`).
+7. Merging AVL trees (`buildAVLFromSortedArray`, `mergeWith`).
+
+Following this progression ensures that you build upon a stable foundation, verifying correctness at each step before tackling the more intricate parts of AVL functionality.

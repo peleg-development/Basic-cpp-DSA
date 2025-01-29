@@ -1,0 +1,125 @@
+### Red-Black Tree Deletion Cases Explained
+
+To help you understand and memorize the cases in `fixDelete`, here's a detailed explanation of all the cases. You can use this to visualize and create examples of red-black trees to practice.
+
+---
+
+### Key Definitions:
+1. **Node**: The node that caused the double black issue.
+2. **Sibling**: The sibling of the node.
+3. **Parent**: The parent of the node.
+4. **Near Child**: The child of the sibling closer to the node.
+5. **Far Child**: The child of the sibling farther from the node.
+
+---
+
+### Case 1: **Sibling is Red**
+
+#### Structure:
+```text
+        Parent(B)
+       /       \
+    Node(DB)  Sibling(R)
+               /      \
+         Near(B)     Far(B)
+```
+#### Actions:
+1. Recolor the **sibling** to black.
+2. Recolor the **parent** to red.
+3. Perform a **rotation** on the parent:
+   - If the sibling is on the right, perform a **left rotation**.
+   - If the sibling is on the left, perform a **right rotation**.
+4. Update the sibling pointer after the rotation.
+
+#### Why?
+This case transforms the tree into a situation where the sibling is black, making it easier to handle in subsequent cases.
+
+---
+
+### Case 2: **Sibling’s Children Are Both Black**
+
+#### Structure:
+```text
+        Parent(?B)
+       /       \
+    Node(DB)  Sibling(B)
+               /      \
+         Near(B)     Far(B)
+```
+#### Actions:
+1. Recolor the **sibling** to red.
+2. Move the "double black" issue up by setting `node = parent`.
+
+#### Why?
+Recoloring the sibling to red reduces its black height, effectively "borrowing" a black node. The double black issue is passed up to the parent, which will be resolved in the next iteration.
+
+---
+
+### Case 3: **Sibling’s Far Child is Black, Near Child is Red**
+
+#### Structure:
+```text
+        Parent(?B)
+       /       \
+    Node(DB)  Sibling(B)
+               /      \
+         Near(R)     Far(B)
+```
+#### Actions:
+1. Recolor the **sibling** to red.
+2. Recolor the **near child** to black.
+3. Perform a rotation on the sibling:
+   - If the sibling is on the right, perform a **right rotation**.
+   - If the sibling is on the left, perform a **left rotation**.
+4. Update the sibling pointer after the rotation.
+
+#### Why?
+This prepares the tree for Case 4 by making the sibling’s far child red, which can then donate a black height to fix the double black issue.
+
+---
+
+### Case 4: **Sibling’s Far Child is Red**
+
+#### Structure:
+```text
+        Parent(?B)
+       /       \
+    Node(DB)  Sibling(B)
+               /      \
+         Near(B)     Far(R)
+```
+#### Actions:
+1. Recolor the **sibling** with the parent’s color.
+2. Recolor the **parent** to black.
+3. Recolor the **far child** to black.
+4. Perform a rotation on the parent:
+   - If the sibling is on the right, perform a **left rotation**.
+   - If the sibling is on the left, perform a **right rotation**.
+5. Set `node = root` to exit the loop.
+
+#### Why?
+The far child’s red color allows it to donate a black height, resolving the double black issue and restoring all red-black properties.
+
+---
+
+### Key to Remember:
+1. **Sibling on the Right**:
+   - Near child = sibling’s left child.
+   - Far child = sibling’s right child.
+   - Rotations are **left** for Case 1 and Case 4, and **right** for Case 3.
+
+2. **Sibling on the Left**:
+   - Near child = sibling’s right child.
+   - Far child = sibling’s left child.
+   - Rotations are **right** for Case 1 and Case 4, and **left** for Case 3.
+
+---
+
+### How to Practice:
+1. Create small red-black trees (3-5 nodes).
+2. Delete a black node and identify which case applies.
+3. Visualize the transformations step by step.
+4. Repeat for both sibling-on-right and sibling-on-left scenarios.
+
+Feel free to update this document with your own examples to reinforce your understanding!
+

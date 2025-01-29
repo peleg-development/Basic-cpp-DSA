@@ -1,0 +1,180 @@
+/*
+If you were to implement these data structures yourself from scratch (not just use the C++ standard library),
+you would need to consider what essential functions (methods) are required to mimic their behavior.
+Here are the sets of functions you would typically provide:
+
+-------------------------------------
+For a Map-like Structure (Balanced Tree Map):
+
+1) insert(key, value)
+   - Insert a new key-value pair into the map if the key does not exist.
+
+2) find(key)
+   - Return an iterator or pointer to the element associated with the key, or indicate that it’s not found.
+
+3) erase(key)
+   - Remove the element with the given key if it exists.
+
+4) operator[](key) (Optional)
+   - Return a reference to the value associated with the key, inserting a new pair if not found.
+
+5) at(key) (Optional)
+   - Return a reference to the value for a key, but throw an exception or handle error if not found.
+
+6) begin() and end()
+   - Provide iterators that allow iteration over all elements in ascending key order.
+
+7) size() and empty()
+   - Return the number of elements, and check if the map is empty.
+
+-------------------------------------
+For an Unordered Map-like Structure (Hash Table):
+
+1) insert(key, value)
+   - Insert a new key-value pair into the hash table if the key does not exist.
+
+2) find(key)
+   - Find the element with the given key and return a handle to it if found.
+
+3) erase(key)
+   - Remove the element with the specified key if it exists.
+
+4) operator[](key) (Optional)
+   - Return a reference to the value associated with the key, inserting a default-constructed pair if none exists.
+
+5) at(key) (Optional)
+   - Return a reference to the value for a key, but handle errors if the key isn’t found.
+
+6) begin() and end()
+   - Provide a way to iterate over all elements, though order is not guaranteed.
+
+7) size() and empty()
+   - Return the number of elements and check if the container is empty.
+
+-------------------------------------
+For a Vector-like Structure:
+
+1) push_back(value)
+   - Insert a new element at the end of the vector.
+
+2) operator[](index)
+   - Access the element at a given index without bounds checking.
+
+3) at(index)
+   - Access the element with bounds checking, handle out-of-range errors.
+
+4) size()
+   - Return the number of elements currently in the vector.
+
+5) capacity() and reserve()
+   - Optional: Return current allocated capacity and request a specific capacity.
+
+6) begin() and end()
+   - Provide iterators (or equivalent) to iterate over all elements in insertion order.
+
+7) empty()
+   - Check if the vector is empty.
+
+-------------------------------------
+For a Pair-like Structure:
+
+1) Constructor:
+   - A constructor that takes two values (first, second).
+
+2) Accessors for first and second:
+   - Although these are public members typically,
+     you’d define or rely on them to access the stored values.
+
+Pairs are simpler; they are just small aggregates holding two values.
+
+-------------------------------------
+
+By knowing which functions are needed, you can outline the interfaces for your custom implementations.
+These lists represent the typical functionality you’d expect to replicate if you were designing and
+building these data structures from scratch.
+*/
+
+Hash
+/*
+About Hash Tables:
+
+A Hash Table is a data structure that provides a way to store and retrieve elements using a
+key-value mapping with average O(1) time complexity for insertion, deletion, and lookup.
+
+Key Concepts:
+1. Hash Function:
+   - A function that takes a key (e.g., an integer, string) and returns an integer "hash code."
+   - This hash code is used to determine which "bucket" the element belongs to.
+   - A good hash function evenly distributes keys across buckets to minimize collisions.
+
+2. Buckets:
+   - The hash table is divided into several buckets (like containers).
+   - Each bucket holds zero or more elements.
+   - The hash code of the key determines which bucket an element is placed in.
+   - Example: bucket_index = hash(key) % number_of_buckets
+
+3. Collisions:
+   - Occur when different keys produce the same bucket index.
+   - Common ways to handle collisions:
+     - Chaining: Store collided elements in a linked list or another container within the bucket.
+     - Open Addressing: Find another bucket using a probe sequence if the initial bucket is full.
+
+4. Average O(1) Complexity:
+   - Under good hashing and reasonable load factor, most operations only require looking at
+     one or a small number of elements in a bucket.
+   - Insert, find, and erase can often be done without traversing large portions of the table.
+   - Worst-case operations can degrade to O(n) if many keys end up in the same bucket.
+
+5. Load Factor and Rehashing:
+   - Load factor = (number_of_elements) / (number_of_buckets).
+   - If the load factor becomes too high, the hash table can resize (rehash) to reduce collisions
+     and maintain O(1) average performance.
+
+In summary:
+A Hash Table uses a hash function to assign keys to buckets, minimizing collisions to achieve
+efficient average-time operations. This makes it ideal when fast lookups are critical and
+the order of keys does not matter.
+*/
+
+/*
+If you were to create your own Hash Table from scratch, you would need the following key functions:
+
+1) insert(key, value)
+   - Inserts a new key-value pair into the hash table if the key does not already exist.
+   - If it exists, you may choose to update the value or ignore the insertion.
+
+2) find(key)
+   - Searches the hash table for an element with the given key.
+   - Returns a handle (iterator, pointer, or special structure) to the element if found, or an indication that it’s not found.
+
+3) erase(key)
+   - Removes the element with the specified key from the hash table if it exists.
+   - Must handle reordering or linking of elements to maintain the table’s integrity when a bucket loses an element.
+
+4) operator[](key) (Optional)
+   - Returns a reference to the value associated with the key.
+   - If the key does not exist, you may choose to insert a default-constructed value.
+
+5) at(key) (Optional)
+   - Returns a reference to the value associated with the key, or throws an exception (or signals an error) if the key isn’t found.
+
+6) begin() and end() (Optional)
+   - Provide iterators or a way to traverse all elements in the hash table.
+   - Order is not guaranteed or meaningful in a hash table, but iteration over all elements can be useful.
+
+7) rehash(new_bucket_count) (Optional)
+   - Adjusts the number of buckets in the hash table.
+   - Called internally when insertions increase the load factor beyond a desired threshold.
+   - Helps maintain O(1) average complexity by redistributing elements among buckets.
+
+8) size() and empty()
+   - size(): Returns the number of elements currently stored.
+   - empty(): Returns true if no elements are in the hash table, false otherwise.
+
+Additionally:
+- A hash function (often provided or chosen when creating the hash table) to convert keys to indices.
+- A way to handle collisions (chaining or open addressing).
+- Functions to maintain and adjust the load factor if implementing automatic rehashing.
+
+By implementing these functions, you can build a functioning hash table data structure from scratch.
+*/

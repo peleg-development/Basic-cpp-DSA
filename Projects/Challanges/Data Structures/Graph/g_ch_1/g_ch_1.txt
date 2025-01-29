@@ -1,0 +1,61 @@
+**Overall Explanation**
+You are tasked with building and manipulating a graph using fundamental data structures that you must create or piece together from scratch. The setting is a complex transportation network: intersections are graph nodes and roads are edges. Your goal is to gradually develop a robust toolkit of data structures (e.g., vectors, pairs, maps) and algorithms that can handle various graph-related challenges.
+
+The graph you’re dealing with is not trivial. It may have thousands of intersections (nodes), and each intersection can have many outgoing roads (edges). Roads could be one-way or two-way, and they may have associated properties like travel time (weights) or conditions. You’ll need to:
+
+- Represent the graph efficiently with adjacency lists or adjacency maps.
+- Handle both directed and undirected edges.
+- Work with weighted edges for shortest paths.
+- Possibly detect special structures like strongly connected components or perform topological sorts if the graph is a Directed Acyclic Graph (DAG).
+
+At each challenge, you must rely on handcrafted or well-structured standard data types—no specialized graph libraries. For instance, store edges using `std::vector<std::pair<int, int>>`, utilize `std::map<int, std::vector<std::pair<int, int>>>` when keyed lookups are needed, and implement graph algorithms that use `std::priority_queue`, `std::stack`, or `std::queue`. Each step should build upon the previous, pushing you to combine, optimize, and refine your data structures to handle increasing complexity.
+
+---
+
+**Challenges**
+
+1) **Challenge 1: Basic Graph Construction**
+   - **Task:** Implement a graph representation from scratch.
+   - **Details:**
+     - Create a node indexing system using a simple vector or map (e.g. `std::map<int, std::vector<std::pair<int,int>>>`) where keys represent nodes and the value is a list of `(neighbor, weight)` pairs.
+     - Support both directed and undirected edges. For undirected edges, insert both `(u -> v)` and `(v -> u)` links. For weighted edges, ensure each pair stores `(destination, weight)`.
+   - **Focus:** Use pairs to store edge endpoints and weights; use vectors or maps for adjacency lists.
+
+2) **Challenge 2: Shortest Path Queries**
+   - **Task:** Implement a shortest path algorithm (e.g., Dijkstra’s) using the data structure from Challenge 1.
+   - **Details:**
+     - Use a priority queue (`std::priority_queue`) to efficiently pick the next closest node.
+     - Maintain distance arrays (e.g., `std::vector<int> dist`) and visited sets (could be `std::vector<bool>`).
+     - Update distances by iterating over adjacency lists.
+   - **Focus:** Integrate a priority queue with your adjacency list structure.
+
+3) **Challenge 3: Topological Sorting & DAG Detection**
+   - **Task:** Given a directed version of your graph, detect if it’s a DAG and produce a topological order if it is.
+   - **Details:**
+     - Implement a topological sort using a stack or queue to store nodes with no incoming edges.
+     - Use in-degree arrays (`std::vector<int>` or a map if node IDs are sparse) to track how many edges point into each node.
+   - **Focus:** Use stacks/queues to support the graph processing and carefully maintain in-degrees.
+
+4) **Challenge 4: Strongly Connected Components (SCC)**
+   - **Task:** Decompose the directed graph into strongly connected components using Tarjan’s or Kosaraju’s algorithm.
+   - **Details:**
+     - Implement recursion stacks (using a simple `std::stack<int>`) and arrays/vectors for discovery times and low links (e.g., `std::vector<int>`).
+     - For Kosaraju’s, you’ll need a reversed graph structure—build it by traversing your adjacency list and reversing edges.
+   - **Focus:** Master using multiple data structures (stacks, arrays, reversed adjacency lists) to find SCCs.
+
+5) **Challenge 5: Complex Queries (e.g., Minimum Spanning Tree or Maximum Flow)**
+   - **Task:** Introduce a new dimension: either find a Minimum Spanning Tree (for undirected graphs) or solve a Maximum Flow problem (for directed graphs).
+   - **Details:**
+     - MST (Kruskal’s): Sort edges using a vector and custom comparator. Implement a Union-Find/Disjoint Set data structure from scratch using arrays or maps.
+     - Max Flow (Edmond-Karp or Dinic’s): Use queues and layered graphs. Store residual networks in adjacency lists and update them dynamically.
+   - **Focus:** Use advanced structures: for MST, implement Union-Find; for Max Flow, manipulate multiple adjacency lists and a queue.
+
+---
+
+**In Summary:**
+- You start by building a versatile graph representation.
+- Progress to sophisticated queries like shortest paths.
+- Move on to structural properties: topological order and strongly connected components.
+- Finally, handle global optimization tasks: spanning trees or network flow.
+
+At each step, think about which data structures best suit the task—maps for quick lookups, vectors for adjacency lists, pairs for edge storage, priority queues for optimal selections, and stacks/queues for algorithmic workflows. By the end, you’ll have a deep understanding of how fundamental data structures interact to solve complex graph problems.

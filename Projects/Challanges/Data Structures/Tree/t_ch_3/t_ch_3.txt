@@ -1,0 +1,271 @@
+Below is a more advanced challenge and a refined base class (in C++-style pseudocode) that defines the structure and function signatures for an AVL tree, but provides **no implementations**—just the class, member variables, and function declarations. The challenge is designed to push you beyond basic insert/delete operations and give you a deeply advanced understanding of AVL trees.
+
+---
+
+### The Advanced Challenge
+
+You are tasked not only with implementing standard AVL operations but also with enhancing your AVL tree with more complex functionalities. After completing the standard insert, delete, rotate, and search operations, try to tackle these advanced challenges:
+
+1. **Merging Two AVL Trees**: Given two AVL trees of similar size, efficiently merge them into a single balanced AVL tree. This involves:
+   - Understanding how to traverse and merge while maintaining balance.
+   - Potentially converting one tree into a sorted array, merging with another array, and then building a balanced AVL tree from scratch, or using a more direct approach if you’re clever.
+
+2. **Order-Statistic Operations**: Augment each node in your AVL tree so you can:
+   - **Select(i)**: Return the i-th smallest element in O(log n) time.
+   - **Rank(key)**: Given a key, determine its rank (position in the sorted order) in O(log n) time.
+   Achieving this will require maintaining subtree sizes at each node and carefully updating them during rotations and insertions/deletions.
+
+3. **AVL Tree Variants**: Experiment with storing additional data (like subtree max/min, or sum of subtree keys) and ensuring that all augmented information remains consistent after rotations.
+
+4. **Stress Testing and Visualizing**:
+   - Implement large-scale stress tests (inserting thousands or millions of elements).
+   - Visualize rotations and the resulting tree structure to confirm the correctness and efficiency of your balancing logic.
+
+By completing these steps, you will gain mastery over the internal workings of AVL trees and how to maintain their invariants under more complex and data-rich scenarios.
+
+---
+
+### Base Class Skeleton (C++-Style Pseudocode)
+
+/**
+ * @brief A single node in an AVL Tree.
+ *
+ * Each node maintains:
+ * - A key (int in this example, but can be templated for generality)
+ * - Pointers to left and right child nodes
+ * - A height field for balancing
+ *
+ * **Advanced augmentation**: Consider adding fields like 'subtree_size'
+ * for order statistics, or aggregated info (e.g., min, max, sum) for other applications.
+ */
+class AVLNode {
+public:
+    int key;               ///< The value stored at this node
+    AVLNode* left;         ///< Pointer to left child
+    AVLNode* right;        ///< Pointer to right child
+    int height;            ///< Height of this node
+    int subtree_size;      ///< (Optional) Size of the subtree rooted at this node for order-statistics
+
+    /**
+     * @brief Construct a new AVLNode object
+     * @param k Key to store in the node
+     */
+    AVLNode(int k);
+};
+
+
+/**
+ * @brief The AVLTree class representing a self-balancing binary search tree.
+ */
+class AVLTree {
+protected:
+    AVLNode* root; ///< The root of the AVL tree
+
+    /**
+     * @brief Get the height of a node.
+     * @param node The node from which to retrieve height.
+     * @return int The height of the node; 0 if node is nullptr.
+     */
+    int getHeight(AVLNode* node);
+
+    /**
+     * @brief Updates the height of a node based on its children's heights.
+     * @param node The node whose height should be updated.
+     */
+    void updateHeight(AVLNode* node);
+
+    /**
+     * @brief Compute the balance factor of a node.
+     * @param node The node to check.
+     * @return int The balance factor = height(left) - height(right).
+     */
+    int getBalanceFactor(AVLNode* node);
+
+    /**
+     * @brief Rotate right to correct a left-heavy subtree.
+     * @param y The root of the subtree to rotate.
+     * @return AVLNode* The new root after rotation.
+     */
+    AVLNode* rightRotate(AVLNode* y);
+
+    /**
+     * @brief Rotate left to correct a right-heavy subtree.
+     * @param x The root of the subtree to rotate.
+     * @return AVLNode* The new root after rotation.
+     */
+    AVLNode* leftRotate(AVLNode* x);
+
+    /**
+     * @brief Balances a subtree rooted at 'node' after insertion or deletion.
+     * This involves checking the balance factor and performing rotations as needed.
+     * @param node The node at which to perform balance checks and fixes.
+     * @return AVLNode* The new root of the balanced subtree.
+     */
+    AVLNode* balanceNode(AVLNode* node);
+
+    /**
+     * @brief Insert a new key into the subtree rooted at 'node'.
+     * Also handles rebalancing and height updates.
+     * @param node The root of the subtree where the key is inserted.
+     * @param key The key to insert.
+     * @return AVLNode* The new root of the subtree after insertion and balancing.
+     */
+    AVLNode* insertNode(AVLNode* node, int key);
+
+    /**
+     * @brief Find the node with the smallest key in a subtree.
+     * @param node The root of the subtree to search.
+     * @return AVLNode* The node with the minimum key.
+     */
+    AVLNode* findMinNode(AVLNode* node);
+
+    /**
+     * @brief Delete the specified key from the subtree rooted at 'node'.
+     * Also handles rebalancing and height updates.
+     * @param node The root of the subtree from which to delete the key.
+     * @param key The key to delete.
+     * @return AVLNode* The new root of the subtree after deletion and balancing.
+     */
+    AVLNode* deleteNode(AVLNode* node, int key);
+
+    /**
+     * @brief Searches for a key starting at the given node.
+     * @param node The root of the subtree to search.
+     * @param key The key to find.
+     * @return bool True if the key is found, false otherwise.
+     */
+    bool searchNode(AVLNode* node, int key);
+
+    /**
+     * @brief In-order traversal to print or process nodes in ascending order.
+     * @param node The root of the subtree to traverse.
+     */
+    void inOrderTraversal(AVLNode* node);
+
+    /**
+     * @brief Clear the subtree rooted at 'node', deleting all its nodes.
+     * @param node The root of the subtree to clear.
+     */
+    void clearSubtree(AVLNode* node);
+
+    // --- Advanced Operations (To Implement) ---
+
+    /**
+     * @brief Augments subtree information (like subtree_size) if needed.
+     * Call this after rotations or insertions/deletions to maintain correctness.
+     * @param node The node whose augmented fields should be updated.
+     */
+    void updateAugmentedData(AVLNode* node);
+
+    /**
+     * @brief Rebuild an AVL subtree from a sorted array of keys.
+     * Useful for merging two AVL trees by combining their arrays of keys.
+     * @param keys A reference to a sorted array of keys.
+     * @param start Start index.
+     * @param end End index.
+     * @return AVLNode* The root of the rebuilt balanced AVL subtree.
+     */
+    AVLNode* buildAVLFromSortedArray(const std::vector<int>& keys, int start, int end);
+
+    /**
+     * @brief Merge another AVL tree into the current one, producing a balanced result.
+     * Potential approach:
+     * 1) Extract sorted keys from both trees.
+     * 2) Merge the sorted arrays.
+     * 3) Build a balanced AVL tree from the merged array.
+     *
+     * @param other The AVLTree to merge into this one.
+     */
+    void mergeWith(AVLTree& other);
+
+    /**
+     * @brief Find the i-th smallest element in the AVL tree (Order Statistic).
+     * This requires maintaining subtree sizes and using them to navigate.
+     * @param node The root of the subtree in which to find the i-th smallest key.
+     * @param i The rank of the desired key (1-based).
+     * @return int The i-th smallest key.
+     */
+    int selectNode(AVLNode* node, int i);
+
+    /**
+     * @brief Determine the rank of a given key in the AVL tree.
+     * @param node The root of the subtree in which to find the rank.
+     * @param key The key whose rank is desired.
+     * @return int The rank of the key in ascending order; 0 if not found.
+     */
+    int rankOfKey(AVLNode* node, int key);
+
+public:
+    /**
+     * @brief Construct a new AVLTree object, initially empty.
+     */
+    AVLTree();
+
+    /**
+     * @brief Insert a new key into the AVL tree.
+     * @param key The key to insert.
+     */
+    void insert(int key);
+
+    /**
+     * @brief Remove a key from the AVL tree.
+     * @param key The key to remove.
+     */
+    void remove(int key);
+
+    /**
+     * @brief Check if a key exists in the AVL tree.
+     * @param key The key to search for.
+     * @return true If the key is found.
+     * @return false Otherwise.
+     */
+    bool search(int key);
+
+    /**
+     * @brief Print all keys in ascending order.
+     */
+    void printInOrder();
+
+    /**
+     * @brief Get the height of the entire AVL tree.
+     * @return int The height of the tree.
+     */
+    int getTreeHeight();
+
+    /**
+     * @brief Clear the AVL tree (remove all nodes).
+     */
+    void clear();
+
+    /**
+     * @brief Merge this tree with another AVL tree.
+     * @param other The other AVL tree to merge into this one.
+     */
+    void merge(AVLTree& other);
+
+    /**
+     * @brief Get the i-th smallest element in the AVL tree.
+     * @param i The rank of the element (1-based).
+     * @return int The i-th smallest key.
+     */
+    int select(int i);
+
+    /**
+     * @brief Get the rank of a given key in the AVL tree.
+     * @param key The key whose rank is requested.
+     * @return int The rank of the key; 0 if not found.
+     */
+    int rank(int key);
+};
+
+---
+
+**Note:**
+- The functions above are just declarations with documentation. You are responsible for implementing them.
+- To gain a truly advanced understanding of AVL trees, you should:
+  - Implement basic rotations and height management first.
+  - Add balancing logic after insertions and deletions.
+  - Proceed to augmented data such as subtree sizes to facilitate order statistics.
+  - Experiment with merging two AVL trees, which requires a deeper understanding of AVL properties and how balanced trees can be constructed from sorted arrays.
+
+These advanced challenges push you to thoroughly understand the underlying properties of AVL trees and how they maintain O(log n) performance guarantees through careful balancing.

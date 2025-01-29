@@ -1,0 +1,109 @@
+**Work Order for Implementing Red-Black Tree Functions**
+
+Below is a structured progression for implementing the functions of a **Red-Black Tree** (RBT). The goal is to build functionality incrementally while ensuring correctness and alignment with RBT properties.
+
+---
+
+### **1. Node Creation and Tree Initialization**
+   - Implement the **Node constructor** to initialize:
+     - Key (`K`), value (`V`), parent, children (left, right), and color (default red).
+   - Implement the **RedBlackTree constructor** to:
+     - Initialize `root = NIL`.
+     - Create a sentinel `NIL` node (shared across the tree) for all leaves.
+
+---
+
+### **2. Basic Tree Operations Without Balancing**
+Implement foundational Binary Search Tree (BST) operations first:
+1. **Search**:
+   - Implement `searchNode(Node* root, K key)`:
+     - Recursively or iteratively find a node with the given key.
+2. **Insert (BST Logic Only)**:
+   - Implement `insertNode(Node* root, K key, V value)`:
+     - Perform a standard BST insertion to locate the correct position.
+3. **Minimum**:
+   - Implement `findMin(Node* node)`:
+     - Traverse left child pointers to find the smallest key.
+
+At this stage, the tree behaves like a BST without Red-Black balancing.
+
+---
+
+### **3. Rotations**
+Implement **leftRotate(Node* x)** and **rightRotate(Node* x)**:
+   - Adjust pointers to rotate subtrees correctly.
+   - Verify that rotations preserve the BST property.
+
+**Example for Left Rotation:**
+```
+    x                y
+     \              /
+      y    ==>     x
+       \            \
+        T3          T3
+```
+
+---
+
+### **4. Fixing Violations After Insertions**
+Implement **fixInsert(Node* node)** to restore Red-Black properties after an insertion:
+1. **Key Violations to Fix**:
+   - Root must be black.
+   - No two consecutive red nodes.
+   - Equal black height on all paths.
+2. **Steps**:
+   - Use rotations and recoloring to fix violations.
+   - Traverse upwards to check and fix all ancestors.
+
+---
+
+### **5. Transplant and Minimum**
+- Implement **transplant(Node* u, Node* v)**:
+  - Replace subtree rooted at `u` with subtree rooted at `v`.
+  - Adjust parent pointers for `u` and `v`.
+- Ensure it handles:
+  - Replacing nodes during deletions.
+  - Updating parent-child links correctly.
+
+---
+
+### **6. Deletion and Fixing Violations**
+1. Implement **remove(K key)**:
+   - Perform standard BST deletion to locate and remove the node.
+   - Use **transplant** to handle replacements (e.g., with the in-order successor).
+2. Implement **fixDelete(Node* node)**:
+   - Fix Red-Black Tree violations caused by node removal.
+   - Handle double-black violations using recoloring and rotations.
+
+---
+
+### **7. In-Order Traversal**
+Implement **printInOrder()**:
+   - Traverse the tree recursively to print keys in ascending order.
+   - Use this to verify correctness of insertions and deletions.
+
+---
+
+### **Advanced Features (Optional)**
+1. **Augmented Data**:
+   - Add extra metadata (e.g., subtree size, min/max) to each node.
+   - Update during rotations and fix-ups.
+2. **Stress Testing**:
+   - Insert and delete thousands of random keys to test efficiency.
+3. **Serialization**:
+   - Implement a method to save and reload the tree structure.
+
+---
+
+### Summary of Order:
+1. Node creation and initialization.
+2. Basic BST operations (search, insert, minimum).
+3. Rotations (left and right).
+4. Fix violations after insertions.
+5. Transplant and deletion logic.
+6. Fix violations after deletions.
+7. In-order traversal for debugging.
+8. Optional advanced features.
+
+By following this progression, you build a robust understanding of Red-Black Trees and their operations, ensuring correctness at each step.
+

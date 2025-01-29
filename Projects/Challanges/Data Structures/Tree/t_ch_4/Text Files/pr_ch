@@ -1,0 +1,464 @@
+### Red-Black Tree Practice Challenges
+
+This document contains 20 challenges to practice red-black tree operations (insertions, deletions, and fixes). Each challenge provides a task to perform on the tree, and the solutions are listed at the bottom with explanations.
+
+---
+
+### Challenge 1: Simple Insertion
+**Task:**
+Insert the following values into an empty red-black tree in this order:
+```text
+[20, 15, 30, 10]
+```
+
+---
+
+### Challenge 2: Insert with Recoloring
+**Task:**
+Insert the following values into an empty red-black tree in this order:
+```text
+[20, 15, 30, 25]
+```
+
+---
+
+### Challenge 3: Insert with Rotation
+**Task:**
+Insert the following values into an empty red-black tree in this order:
+```text
+[20, 10, 30, 5]
+```
+
+---
+
+### Challenge 4: Deletion of a Red Node
+**Task:**
+Delete the red node `10` from the following tree:
+```text
+       20(B)
+      /    \
+   10(R)  30(B)
+```
+
+---
+
+### Challenge 5: Deletion of a Black Node
+**Task:**
+Delete the black node `20` from the following tree:
+```text
+       20(B)
+      /    \
+   10(R)  30(R)
+```
+
+---
+
+### Challenge 6: Fix Double Black
+**Task:**
+Delete the black node `15` from the following tree:
+```text
+       20(B)
+      /    \
+   15(B)  30(B)
+   /
+ 10(R)
+```
+
+---
+
+### Challenge 7: Complex Insertions
+**Task:**
+Insert the following values into an empty red-black tree in this order:
+```text
+[50, 30, 70, 20, 40, 60, 80]
+```
+
+---
+
+### Challenge 8: Fix Violations After Insertion
+**Task:**
+Insert the value `25` into the following tree:
+```text
+       30(B)
+      /    \
+   20(B)  40(B)
+```
+
+---
+
+### Challenge 9: Multiple Deletions
+**Task:**
+Delete `30` and `20` from the following tree:
+```text
+       30(B)
+      /    \
+   20(B)  40(B)
+```
+
+---
+
+### Challenge 10: Analyze and Fix
+**Task:**
+Analyze the following tree and identify the red-black violations. Fix them:
+```text
+       20(R)
+      /    \
+   10(R)  30(B)
+```
+
+---
+
+### Challenge 11: Larger Insertion Sequence
+**Task:**
+Insert the following values into an empty red-black tree:
+```text
+[40, 20, 60, 10, 30, 50, 70, 5, 15]
+```
+
+---
+
+### Challenge 12: Deletion in Larger Tree
+**Task:**
+Delete the black node `50` from the following tree:
+```text
+       40(B)
+      /    \
+   20(R)  60(B)
+   /  \    /   \
+ 10(B) 30(B) 50(B) 70(B)
+```
+
+---
+
+### Challenge 13: Fix Double Black in Larger Tree
+**Task:**
+Delete the black node `30` from the following tree:
+```text
+       40(B)
+      /    \
+   20(B)  60(B)
+   /       /   \
+ 10(B)    50(R) 70(B)
+```
+
+---
+
+### Challenge 14: Complex Rotations
+**Task:**
+Insert the value `35` into the following tree:
+```text
+       40(B)
+      /    \
+   20(B)  60(B)
+   /  \    /
+ 10(B) 30(R) 50(B)
+```
+
+---
+
+### Challenge 15: Multiple Insertions and Fixes
+**Task:**
+Insert the following values into an empty red-black tree:
+```text
+[100, 50, 150, 25, 75, 125, 175, 20, 30]
+```
+
+---
+
+### Challenge 16: Deletion and Fix in Complex Tree
+**Task:**
+Delete the black node `60` from the following tree:
+```text
+       40(B)
+      /    \
+   20(B)  60(B)
+   /  \    /   \
+ 10(B) 30(B) 50(B) 70(B)
+```
+
+---
+
+### Challenge 17: Analyze a Deep Tree
+**Task:**
+Analyze the following tree and identify any red-black violations. Fix them:
+```text
+       50(B)
+      /    \
+   25(B)  75(B)
+   /  \    /   \
+ 20(R) 30(B) 70(B) 80(B)
+```
+
+---
+
+### Challenge 18: Complex Deletions
+**Task:**
+Delete `20` and `50` from the following tree:
+```text
+       50(B)
+      /    \
+   25(B)  75(B)
+   /  \    /   \
+ 20(B) 30(B) 70(B) 80(B)
+```
+
+---
+
+### Challenge 19: Multi-Level Fixes
+**Task:**
+Delete the black node `40` from the following tree:
+```text
+       40(B)
+      /    \
+   20(B)  60(B)
+   /  \    /   \
+ 10(R) 30(B) 50(B) 70(B)
+```
+
+---
+
+### Challenge 20: Analyze and Resolve
+**Task:**
+Analyze the following tree and identify any violations. Fix them:
+```text
+       40(R)
+      /    \
+   20(B)  60(B)
+   /  \    /   \
+ 10(B) 30(R) 50(B) 70(B)
+```
+
+---
+
+### Solutions and Explanations
+
+#### Challenge 1:
+**Answer:**
+```text
+       20(B)
+      /    \
+   15(R)  30(R)
+     /
+  10(B)
+```
+**Explanation:**
+- Insertions proceed normally. No rotations are required, and the red-black properties are maintained.
+
+#### Challenge 2:
+**Answer:**
+```text
+       20(B)
+      /    \
+   15(R)  30(B)
+          /
+        25(R)
+```
+**Explanation:**
+- Recolor `30` and `25` to balance the black height. No rotations are needed.
+
+#### Challenge 3:
+**Answer:**
+```text
+       20(B)
+      /    \
+   10(B)  30(B)
+     /
+   5(R)
+```
+**Explanation:**
+- Insert `5` as a red node. Rotate right at `20` to restore balance.
+
+#### Challenge 4:
+**Answer:**
+```text
+       20(B)
+            \
+            30(B)
+```
+**Explanation:**
+- Deleting the red node `10` has no impact on the tree’s black height.
+
+#### Challenge 5:
+**Answer:**
+```text
+       30(B)
+      /
+   10(R)
+```
+**Explanation:**
+- Deleting the black node `20` shifts `30` up. Recolor `30` to black to maintain balance.
+
+#### Challenge 6:
+**Answer:**
+```text
+       20(B)
+      /    \
+   10(B)  30(B)
+```
+**Explanation:**
+- Deleting `15` creates a double black. Recolor and rotate to restore balance.
+
+#### Challenge 7:
+**Answer:**
+```text
+       50(B)
+      /    \
+   30(B)  70(B)
+   /  \    /  \
+ 20(R) 40(R) 60(R) 80(R)
+```
+**Explanation:**
+- Perform recoloring and rotations as necessary to maintain balance and black height.
+
+#### Challenge 8:
+**Answer:**
+```text
+       30(B)
+      /    \
+   20(R)  40(B)
+      \
+      25(B)
+```
+**Explanation:**
+- Insert `25` as a red node. Recolor `20` and `25`, and rotate right at `30`.
+
+#### Challenge 9:
+**Answer:**
+```text
+       40(B)
+```
+**Explanation:**
+- Deleting `30` shifts `40` up. Deleting `20` leaves the tree balanced.
+
+#### Challenge 10:
+**Answer:**
+```text
+       20(B)
+      /    \
+   10(B)  30(B)
+```
+**Explanation:**
+- Recolor `20` to black to fix the root violation and balance the black height.
+
+#### Challenge 11:
+**Answer:**
+```text
+       40(B)
+      /    \
+   20(B)  60(B)
+   /  \    /  \
+ 10(B) 30(B) 50(B) 70(B)
+      /          \
+     5(R)       15(R)
+```
+**Explanation:**
+- Insertions require recoloring and multiple rotations to maintain the black height.
+
+#### Challenge 12:
+**Answer:**
+```text
+       40(B)
+      /    \
+   20(R)  60(B)
+   /  \        \
+ 10(B) 30(B)  70(B)
+```
+**Explanation:**
+- Deleting `50` causes double black, resolved by recoloring and shifting nodes up.
+
+#### Challenge 13:
+**Answer:**
+```text
+       40(B)
+      /    \
+   20(B)  60(B)
+   /          \
+ 10(B)       70(B)
+```
+**Explanation:**
+- Removing `30` requires recoloring and shifting nodes to restore balance.
+
+#### Challenge 14:
+**Answer:**
+```text
+       40(B)
+      /    \
+   20(B)  60(B)
+   /  \    /
+ 10(B) 35(B) 50(B)
+```
+**Explanation:**
+- Adding `35` creates a violation, resolved by recoloring and left-right rotations.
+
+#### Challenge 15:
+**Answer:**
+```text
+       100(B)
+      /      \
+   50(B)   150(B)
+   /  \     /  \
+ 25(R) 75(R) 125(R) 175(R)
+   \                /
+   30(B)       20(B)
+```
+**Explanation:**
+- Complex insertions require multiple recolorings and rotations to balance the tree.
+
+#### Challenge 16:
+**Answer:**
+```text
+       40(B)
+      /    \
+   20(B)  70(B)
+   /  \    /
+ 10(B) 30(B) 50(B)
+```
+**Explanation:**
+- Deleting `60` resolves by rotating and recoloring to restore balance.
+
+#### Challenge 17:
+**Answer:**
+```text
+       50(B)
+      /    \
+   25(B)  75(B)
+   /  \    /  \
+ 20(B) 30(B) 70(B) 80(B)
+```
+**Explanation:**
+- Violations resolved by recoloring the root and fixing black height.
+
+#### Challenge 18:
+**Answer:**
+```text
+       75(B)
+      /    \
+   30(B)  80(B)
+```
+**Explanation:**
+- Deleting `20` and `50` shifts `75` up and recolors to maintain balance.
+
+#### Challenge 19:
+**Answer:**
+```text
+       60(B)
+      /    \
+   30(B)  70(B)
+   /  \        \
+ 10(B) 50(B)  80(B)
+```
+**Explanation:**
+- Double black at `40` resolved by recoloring and shifting nodes.
+
+#### Challenge 20:
+**Answer:**
+```text
+       40(B)
+      /    \
+   20(B)  60(B)
+   /  \    /   \
+ 10(B) 30(B) 50(B) 70(B)
+```
+**Explanation:**
+- Root recolored to black and other violations fixed through recoloring.
+
